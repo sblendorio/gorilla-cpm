@@ -16,7 +16,7 @@ This is a Modula-2 (despite the name) implementation for CP/M of the classic "GO
  - **gorilla.d64** - Includes CP/M boot code, all sources and binaries
 
 ##Credits
-Thanks to [TomHarte](https://github.com/TomHarte) for his [CP/M for OS X](https://github.com/TomHarte/CP-M-for-OS-X), [Robert Willie] (https://sites.google.com/site/h2obsession/CBM/C128/cp-m) for sharing infos and advices, [Werner Cirsovius](http://cirsovius.de/CPM/Projekte/TURBO-PASCAL/Append/turbo-04-en.html) for implementing "Append" missing function and **Marco Luciano** for his advices.
+Thanks to [Fabrizio Radica](http://www.retroacademy.it/) for the idea, [YAZE Team](http://www.mathematik.uni-ulm.de/users/ag/yaze/) for the fantastic CP/M emulator that runs fine on Mac OS X, to **Sergio Gervasini** and **Stefania Calcagno** for support.
 
 ##Screenshots on Commodore 128
 ###Intro screen
