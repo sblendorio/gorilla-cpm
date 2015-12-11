@@ -2,7 +2,7 @@
 
 This is a Modula-2 (despite the name) implementation for CP/M of the classic "GORILLA.BAS" BASIC game included in MS-DOS 5.0.
 
-#Why Turbo Modula-2?
+##Why Turbo Modula-2?
 The choice was mainly due to a historic interest: this compiler (never distributed by Borland) [was written by Martin Odersky](https://groups.google.com/forum/?fromgroups=#!topic/comp.lang.modula2/Ruy9g8aBmF0) (the inventor of [Scala language](http://www.scala-lang.org/)) and had never been used by a critical mass of users. So it was both a challenging choice and a historic research.
 
 ##Contents of package
