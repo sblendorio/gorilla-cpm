@@ -366,7 +366,7 @@ BEGIN
         outcome:=Shoot(y1-2,Deg2Rad(angle1),
                        FLOAT(speed1),x1+1,79,'*',finalX,finalY);
         IF outcome=PLAYER THEN
-          winner:=1;
+          winner:=1; finalX:=0; finalY:=0;
           INC(score1);
           KillPlayer(x2,y2);
           WinnerPlayer(x1,y1);
@@ -399,7 +399,7 @@ BEGIN
       outcome:=Shoot(y2-2,Deg2Rad(angle2),
                      FLOAT(speed2),x2-1,1,'*',finalX,finalY);
       IF outcome=PLAYER THEN
-        winner:=2;
+        winner:=2; finalX:=0; finalY:=0;
         INC(score2);
         KillPlayer(x1,y1);
         WinnerPlayer(x2,y2);
