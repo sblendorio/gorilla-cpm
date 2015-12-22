@@ -13,7 +13,7 @@ The choice was mainly due to a historic interest: this compiler (never distribut
  - **game.mod** - Game Engine: implementation module
  - **main.mod** - Main module (run this)
 - **binary** - Compiled .COM executable files for CP/M-80
- - **gorilla.com** - Binary executable file
+ - [**gorilla.com**](https://github.com/sblendorio/gorilla-cpm/blob/master/binary/gorilla.com?raw=true) - Binary executable file
 - **dists** - Collection of CP/M bootable disk images for Commodore 128
  - [**gorilla.d71**](https://github.com/sblendorio/gorilla-cpm/blob/master/dists/gorilla.d71?raw=true) - Includes CP/M boot code, all sources and binaries, some utilities
  - [**gorilla.d64**](https://github.com/sblendorio/gorilla-cpm/blob/master/dists/gorilla.d64?raw=true) - Includes CP/M boot code, all sources and binaries
