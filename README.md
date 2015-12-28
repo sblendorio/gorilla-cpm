@@ -7,11 +7,11 @@ The choice was mainly due to a historic interest: this compiler (never distribut
 
 ##Contents of package
 - **source** - Source code in Turbo Modula-2 (despite the name ".BAS")
- - **xterm.def** - XTerm Library: definition module (for terminal portability)
- - **xterm.mod** - XTerm Library: implementation module
- - **game.def** - Game Engine: definition module
- - **game.mod** - Game Engine: implementation module
- - **main.mod** - Main module (run this)
+ - [**xterm.def**](https://github.com/sblendorio/gorilla-cpm/blob/master/source/xterm.def) - XTerm Library: definition module (for terminal portability)
+ - [**xterm.mod**](https://github.com/sblendorio/gorilla-cpm/blob/master/source/xterm.mod) - XTerm Library: implementation module
+ - [**game.def**](https://github.com/sblendorio/gorilla-cpm/blob/master/source/game.def) - Game Engine: definition module
+ - [**game.mod**](https://github.com/sblendorio/gorilla-cpm/blob/master/source/game.mod) - Game Engine: implementation module
+ - [**main.mod**](https://github.com/sblendorio/gorilla-cpm/blob/master/source/main.mod) - Main module (run this)
 - **binary** - Compiled .COM executable files for CP/M-80
  - [**gorilla.com**](https://github.com/sblendorio/gorilla-cpm/blob/master/binary/gorilla.com?raw=true) - Binary executable file
 - **dists** - Collection of CP/M bootable disk images for Commodore 128
