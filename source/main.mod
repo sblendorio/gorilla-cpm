@@ -2,7 +2,7 @@ MODULE Main;
 FROM XTerm IMPORT SEQ,ESCAPE,AskTermType,ResetTerm,
                   ClrScr,PlotBox,Center,HideCursor,ShowCursor,CursorXY,
                   ClrEol,RandomizeShuffle;
-FROM Terminal IMPORT ReadChar;
+FROM Terminal IMPORT ReadChar,ReadLine;
 FROM Game IMPORT StartGame,playerName1,playerName2,totalScore,g;
 
 VAR choose:INTEGER;
@@ -141,7 +141,7 @@ BEGIN
       CursorXY(44,17);
       WRITE(SEQ[DARK],SEQ[REVERSE],s);
       CursorXY(44,17); ShowCursor;
-      READ(playerName1); HideCursor;
+      ReadLine(playerName1); HideCursor;
       IF playerName1='' THEN playerName1:='Player 1' END;
       CursorXY(44,17);
       WRITE(SEQ[PLAIN],SEQ[DARK],s);
@@ -151,7 +151,7 @@ BEGIN
       CursorXY(44,18);
       WRITE(SEQ[DARK],SEQ[REVERSE],s);
       CursorXY(44,18); ShowCursor;
-      READ(playerName2); HideCursor;
+      ReadLine(playerName2); HideCursor;
       IF playerName2='' THEN playerName2:='Player 2' END;
       CursorXY(44,18);
       WRITE(SEQ[PLAIN],SEQ[DARK],s);
@@ -191,6 +191,7 @@ BEGIN
   Center(4,'                           ');
   Center(5,'   G O R I L L A . B A S   ');
   Center(6,'                           ');
+  WRITELN(SEQ[BLACK]);
   WRITE(SEQ[CYAN],SEQ[PLAIN]);
   Center(8,'written by');
   Center(9,'Francesco Sblendorio');
