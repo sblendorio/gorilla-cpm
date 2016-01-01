@@ -20,7 +20,7 @@ The choice was mainly due to a historic interest: this compiler (never distribut
  - [**gorilla.mfloppy**](https://github.com/sblendorio/gorilla-cpm/blob/master/dists/gorilla.mfloppy?raw=true) - Includes Memotech MTX CP/M boot code and binaries (Memotech type 07 disk image)
 
 ##Credits
-Thanks to [Fabrizio Radica](http://www.retroacademy.it/) for the idea, [YAZE Team](http://www.mathematik.uni-ulm.de/users/ag/yaze/) for the fantastic CP/M emulator that runs fine on Mac OS X, [Lawrence Woodman](http://techtinkering.com/2013/03/12/if-only-borland-had-stuck-with-turbo-modula-2-for-cpm/) for sharing informations about CP/M and Turbo Modula-2 and to **Sergio Gervasini** and **Stefania Calcagno** for support.
+Thanks to [Fabrizio Radica](http://www.retroacademy.it/) for the idea, [YAZE Team](http://www.mathematik.uni-ulm.de/users/ag/yaze/) for the fantastic CP/M emulator that runs fine on Mac OS X, [Lawrence Woodman](http://techtinkering.com/2013/03/12/if-only-borland-had-stuck-with-turbo-modula-2-for-cpm/) for sharing informations about CP/M and Turbo Modula-2, [Dave Stevenson](http://www.primrosebank.net/computers/mtx/mtx512.htm) for sharing informations about Memotech MTX and to **Sergio Gervasini** and **Stefania Calcagno** for support.
 
 ##Screenshots on Commodore 128
 ###Intro screen
