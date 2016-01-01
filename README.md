@@ -29,4 +29,4 @@ Thanks to [Fabrizio Radica](http://www.retroacademy.it/) for the idea, [YAZE Tea
 ![C128 version](http://www.sblendorio.eu/images/gorilla-2.png)
 ###Game screen - 2
 ![C128 version](http://www.sblendorio.eu/images/gorilla-3.png)
-Memotech type 07
+
