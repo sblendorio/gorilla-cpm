@@ -15,6 +15,7 @@ BEGIN
   ELSIF name='KAYPRO' THEN RETURN KAYPRO;
   ELSIF name='ADM31' THEN RETURN ADM31;
   ELSIF name='C128' THEN RETURN C128;
+  ELSIF name='MEMOTECH' THEN RETURN MEMOTECH;
   ELSE RETURN INVALID;
   END;
 END String2TermType;
@@ -22,12 +23,14 @@ END String2TermType;
 PROCEDURE PrintTermType(t:TERMTYPE);
 BEGIN
   CASE t OF
-    VT100:  WRITE('VT100  (B&W)') |
-    ANSI:   WRITE('ANSI   (Color)') |
-    KAYPRO: WRITE('KayPro (B&W)') |
-    ADM31:  WRITE('ADM31  (B&W)') |
-    C128:   WRITE('C128   (Color)') |
-    INVALID: WRITE('INVALID')
+    VT100:    WRITE('VT100    (B&W)') |
+    ANSI:     WRITE('ANSI     (Color)') |
+    KAYPRO:   WRITE('KayPro   (B&W)') |
+    ADM31:    WRITE('ADM31    (B&W)') |
+    C128:     WRITE('C128     (Color)') |
+    MEMOTECH: WRITE('Memotech (B&W)') |
+    INVALID:  WRITE('INVALID') |
+    LAST: WRITE('LAST')
   END;
 END PrintTermType;
 
@@ -47,8 +50,8 @@ VAR i:TERMTYPE;
     j:CARDINAL;
 BEGIN
   j:=1;
-  FOR i:=INVALID TO C128 DO
-    IF i<>INVALID THEN
+  FOR i:=INVALID TO LAST DO
+    IF (i<>INVALID) AND (i<>LAST) THEN
       WRITE(j,') ');
       PrintLnTermType(i);
       j:=j+1;
@@ -73,6 +76,12 @@ PROCEDURE CursorXYKAYPRO(x,y:CARDINAL);
 BEGIN
   WRITE(33C,'=',CHAR(y+31),CHAR(x+31))
 END CursorXYKAYPRO;
+
+PROCEDURE CursorXYMemotech(x,y:CARDINAL);
+BEGIN
+  WRITE(3C,CHAR(x+31),CHAR(y+31))
+END CursorXYMemotech;
+
 
 PROCEDURE InitVT100base();
 VAR i:ESCAPE;
@@ -190,6 +199,30 @@ BEGIN
   END;
 END InitC128;
 
+PROCEDURE InitMemotech;
+VAR i:ESCAPE;
+BEGIN
+  CursorXY:=CursorXYMemotech;
+  InitWithNoColors();
+  SEQ[PLAIN]:='64'; SEQ[PLAIN][0]:=6C; SEQ[PLAIN][1]:=4C;
+  SEQ[REVERSE]:='6x'; SEQ[REVERSE][0]:=6C; SEQ[REVERSE][1]:=70C;
+  SEQ[BLINK]:='x'; SEQ[BLINK][0]:=16C;
+  SEQ[NOBLINK]:='x'; SEQ[NOBLINK][0]:=17C;
+  SEQ[UNDERLINE]:='65'; SEQ[UNDERLINE][0]:=6C; SEQ[UNDERLINE][1]:=5C;
+  SEQ[NOUNDERLINE]:=SEQ[PLAIN];
+  SEQ[DARK]:='62'; SEQ[DARK][0]:=6C; SEQ[DARK][1]:=2C;
+  SEQ[NODARK]:=SEQ[PLAIN];
+  SEQ[CLS]:='x'; SEQ[CLS][0]:=14C;
+  SEQ[HOME]:='x'; SEQ[HOME][0]:=26C;
+  SEQ[CLREOL]:='x'; SEQ[CLREOL][0]:=5C;
+  SEQ[INSLINE]:='xI'; SEQ[INSLINE][0]:=33C;
+  SEQ[DELLINE]:='xJ'; SEQ[DELLINE][0]:=33C;
+  SEQ[BEEP]:='x'; SEQ[BEEP][0]:=7C;
+  SEQ[CURSORON]:='x'; SEQ[CURSORON][0]:=36C;
+  SEQ[CURSOROFF]:='x'; SEQ[CURSOROFF][0]:=37C;
+  SEQ[TERMRESET]:='xxx'; SEQ[TERMRESET][0]:=30C; SEQ[TERMRESET][1]:=6C; SEQ[TERMRESET][2]:=4C;
+END InitMemotech;
+
 PROCEDURE SetTermType(t:TERMTYPE);
 BEGIN
   Term:=t;
@@ -198,7 +231,8 @@ BEGIN
     ANSI: InitANSI() |
     KAYPRO: InitKayPro() |
     ADM31: InitC128(FALSE) |
-    C128: InitC128(TRUE)
+    C128: InitC128(TRUE) |
+    MEMOTECH: InitMemotech()
   END;
 END SetTermType;
 
@@ -213,7 +247,7 @@ BEGIN
   ELSE
     t:=String2TermType(s)
   END;
-  IF t=INVALID THEN
+  IF (t=INVALID) OR (t>=LAST) THEN
     WRITELN('Select a terminal type (or specify it on command line):');
     WRITELN();
     PrintTermTypeList();
@@ -221,7 +255,7 @@ BEGIN
     REPEAT
       WRITE('>'); READ(c);
       t:=TERMTYPE(c);
-    UNTIL t>INVALID;
+    UNTIL (t>INVALID) AND (t<LAST);
   END;
   SetTermType(t);
 END AskTermType;
@@ -330,5 +364,5 @@ BEGIN
 END InputCardinal;
 
 BEGIN
-  Term:=KAYPRO;
+  Term:=ANSI;
 END XTerm.

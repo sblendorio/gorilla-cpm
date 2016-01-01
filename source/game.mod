@@ -204,17 +204,18 @@ BEGIN
     CursorXY(x,i);
     IF (i=24) OR (i=25-h) OR (count MOD 2=1) THEN
       WRITE(SEQ[REVERSE],line);
-    END;
-    FOR j:=1 TO w DO
-      screen[x+j-1,i]:=1C;
-      IF (i<24) AND (count MOD 2=0) THEN
-        IF (j=w) OR (j MOD 2=1) THEN
-          WRITE(SEQ[REVERSE],' ');
-        ELSE
-          WRITE(SEQ[PLAIN],' ');
+    ELSE
+      FOR j:=1 TO w DO
+        screen[x+j-1,i]:=1C;
+        IF (i<24) AND (count MOD 2=0) THEN
+          IF (j=w) OR (j MOD 2=1) THEN
+            WRITE(SEQ[REVERSE],' ');
+          ELSE
+            WRITE(SEQ[PLAIN],' ');
+          END;
         END;
       END;
-    END;
+    END
   END;
   WRITE(SEQ[PLAIN],SEQ[NODARK],SEQ[WHITE]);
 END DrawBuilding;
@@ -309,6 +310,7 @@ END PrintOutcome;
 PROCEDURE ShowScore(s1,s2:CARDINAL);
 BEGIN
   CursorXY(35,24); WRITE(SEQ[WHITE],' ',s1:0,'>Score<',s2:0,' ');
+  CursorXY(35,23);
 END ShowScore;
 
 PROCEDURE Celebrate(VAR name:ARRAY OF CHAR);

@@ -140,7 +140,7 @@ BEGIN
     ELSIF (ch='1') THEN
       CursorXY(44,17);
       WRITE(SEQ[DARK],SEQ[REVERSE],s);
-      CursorXY(44,17); ShowCursor;
+      ShowCursor; CursorXY(44,17);
       ReadLine(playerName1); HideCursor;
       IF playerName1='' THEN playerName1:='Player 1' END;
       CursorXY(44,17);
@@ -150,7 +150,7 @@ BEGIN
     ELSIF (ch='2') THEN
       CursorXY(44,18);
       WRITE(SEQ[DARK],SEQ[REVERSE],s);
-      CursorXY(44,18); ShowCursor;
+      ShowCursor; CursorXY(44,18);
       ReadLine(playerName2); HideCursor;
       IF playerName2='' THEN playerName2:='Player 2' END;
       CursorXY(44,18);
@@ -160,7 +160,7 @@ BEGIN
     ELSIF (ch='3') THEN
       CursorXY(44,19);
       WRITE(SEQ[DARK],SEQ[REVERSE],s);
-      CursorXY(44,19); ShowCursor;
+      ShowCursor; CursorXY(44,19);
       READ(totalScore); HideCursor;
       IF totalScore=0 THEN totalScore:=3 END;
       CursorXY(44,19);
@@ -170,7 +170,7 @@ BEGIN
     ELSIF (ch='4') THEN
       CursorXY(44,20);
       WRITE(SEQ[DARK],SEQ[REVERSE],s);
-      CursorXY(44,20); ShowCursor;
+      ShowCursor; CursorXY(44,20);
       READ(g); HideCursor;
       IF g=0.0 THEN g:=9.8 END;
       CursorXY(44,20);
