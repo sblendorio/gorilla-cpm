@@ -1,7 +1,8 @@
 IMPLEMENTATION MODULE Game;
-FROM XTerm IMPORT TERMTYPE,ESCAPE,GetTermType,ResetTerm,SEQ,AskTermType,
+FROM XTerm IMPORT TERMTYPE,ESCAPE,HasColors,ResetTerm,SEQ,AskTermType,
                   ClrScr,PlotBox,Center,HideCursor,ShowCursor,CursorXY,
                   ClrEol,RandomizeShuffle,STRINGSEQ,InputCardinal;
+FROM SYSTEM IMPORT FILL,ADR;
 FROM Terminal IMPORT ReadChar;
 FROM MathLib IMPORT Sin,Cos,Entier,Random;
 FROM Convert IMPORT StrToCard;
@@ -143,7 +144,6 @@ BEGIN
   CursorXY(x-1,y-1); WRITE('-');
 END ArmDownLeft;
 
-
 PROCEDURE ArmUpRight(x,y:INTEGER);
 BEGIN
   CursorXY(x+1,y-2); WRITE('/');
@@ -195,7 +195,7 @@ VAR i,j,count:CARDINAL;
     line:ARRAY [0..15] OF CHAR;
 BEGIN
   WRITE(color);
-  line:='               ';
+  FILL(ADR(line),15,ORD(block));
   line[w]:=0C;
   IF (h=0) OR (w=0) THEN RETURN END;
   count:=0;
@@ -204,18 +204,17 @@ BEGIN
     CursorXY(x,i);
     IF (i=24) OR (i=25-h) OR (count MOD 2=1) THEN
       WRITE(SEQ[REVERSE],line);
-    ELSE
-      FOR j:=1 TO w DO
-        screen[x+j-1,i]:=1C;
-        IF (i<24) AND (count MOD 2=0) THEN
-          IF (j=w) OR (j MOD 2=1) THEN
-            WRITE(SEQ[REVERSE],' ');
-          ELSE
-            WRITE(SEQ[PLAIN],' ');
-          END;
+    END;
+    FOR j:=1 TO w DO
+      screen[x+j-1,i]:=1C;
+      IF (i<24) AND (count MOD 2=0) THEN
+        IF (j=w) OR (j MOD 2=1) THEN
+          WRITE(SEQ[REVERSE],block);
+        ELSE
+          WRITE(SEQ[PLAIN],' ');
         END;
       END;
-    END
+    END;
   END;
   WRITE(SEQ[PLAIN],SEQ[NODARK],SEQ[WHITE]);
 END DrawBuilding;
@@ -234,7 +233,7 @@ BEGIN
   widths[7]:=9;
   widths[8]:=7;
   widths[9]:=7;
-  IF (GetTermType()=KAYPRO) OR (GetTermType()=ADM31) THEN
+  IF (NOT HasColors) THEN
     FOR i:=0 TO 4 DO colors[i]:=SEQ[NODARK]; END;
     FOR i:=5 TO 8 DO colors[i]:=SEQ[DARK]; END;
   ELSE
@@ -260,11 +259,7 @@ BEGIN
     colors[j]:=ts;
     heights[i]:=Entier(Random()*15.0)+5;
   END;
-  FOR i:=1 TO 79 DO
-    FOR j:=1 TO 24 DO
-      screen[i][j]:=0C
-    END
-  END
+  FILL(ADR(screen),1896,0);
 END InitBuildingDimensions;
 
 PROCEDURE DrawBuildings(VAR widths,heights:ARRAY OF CARDINAL);
@@ -433,6 +428,7 @@ BEGIN
 END StartGame;
 
 BEGIN
+  block:=' ';
   g:=9.8;
   totalScore:=3;
   playerName1:='Player 1'; playerName2:='Player 2';

@@ -10,7 +10,8 @@ VAR Term:TERMTYPE;
 PROCEDURE String2TermType(name:ARRAY OF CHAR):TERMTYPE;
 BEGIN
   CAPS(name);
-  IF name='VT100' THEN RETURN VT100;
+  IF name='VT52' THEN RETURN VT52;
+  ELSIF name='VT100' THEN RETURN VT100;
   ELSIF name='ANSI' THEN RETURN ANSI;
   ELSIF name='KAYPRO' THEN RETURN KAYPRO;
   ELSIF name='ADM31' THEN RETURN ADM31;
@@ -23,6 +24,7 @@ END String2TermType;
 PROCEDURE PrintTermType(t:TERMTYPE);
 BEGIN
   CASE t OF
+    VT52:     WRITE('VT52     (B&W)') |
     VT100:    WRITE('VT100    (B&W)') |
     ANSI:     WRITE('ANSI     (Color)') |
     KAYPRO:   WRITE('KayPro   (B&W)') |
@@ -67,6 +69,11 @@ BEGIN
   END;
 END InitWithNoColors;
 
+PROCEDURE CursorXYVT52(x,y:CARDINAL);
+BEGIN
+  WRITE(33C,'Y',CHAR(y+31),CHAR(x+31))
+END CursorXYVT52;
+
 PROCEDURE CursorXYVT100(x,y:CARDINAL);
 BEGIN
   WRITE(33C,'[',y:0,';',x:0,'H')
@@ -81,7 +88,6 @@ PROCEDURE CursorXYMemotech(x,y:CARDINAL);
 BEGIN
   WRITE(3C,CHAR(x+31),CHAR(y+31))
 END CursorXYMemotech;
-
 
 PROCEDURE InitVT100base();
 VAR i:ESCAPE;
@@ -110,6 +116,7 @@ END InitVT100base;
 
 PROCEDURE InitVT100();
 BEGIN
+  HasColors:=FALSE;
   InitWithNoColors();
   InitVT100base();
 END InitVT100;
@@ -117,6 +124,7 @@ END InitVT100;
 PROCEDURE InitANSI();
 VAR i:ESCAPE;
 BEGIN
+  HasColors:=TRUE;
   InitVT100base();
   SEQ[BLACK]:='~[30m~[2m';
   SEQ[WHITE]:='~[37m~[22m';
@@ -141,6 +149,7 @@ PROCEDURE InitKayPro();
 VAR i:ESCAPE;
     j:CARDINAL;
 BEGIN
+  HasColors:=FALSE;
   CursorXY:=CursorXYKAYPRO;
   InitWithNoColors();
   SEQ[REVERSE]:='~B0';
@@ -167,6 +176,7 @@ PROCEDURE InitC128(withColors:BOOLEAN);
 VAR i:ESCAPE;
     j:CARDINAL;
 BEGIN
+  HasColors:=withColors;
   CursorXY:=CursorXYKAYPRO;
   SEQ[REVERSE]:='~G4';
   SEQ[PLAIN]:='~G0';
@@ -202,6 +212,7 @@ END InitC128;
 PROCEDURE InitMemotech;
 VAR i:ESCAPE;
 BEGIN
+  HasColors:=FALSE;
   CursorXY:=CursorXYMemotech;
   InitWithNoColors();
   SEQ[PLAIN]:='64'; SEQ[PLAIN][0]:=6C; SEQ[PLAIN][1]:=4C;
@@ -223,10 +234,36 @@ BEGIN
   SEQ[TERMRESET]:='xxx'; SEQ[TERMRESET][0]:=30C; SEQ[TERMRESET][1]:=6C; SEQ[TERMRESET][2]:=4C;
 END InitMemotech;
 
+PROCEDURE InitVT52;
+VAR i:ESCAPE;
+BEGIN
+  HasColors:=FALSE;
+  CursorXY:=CursorXYVT52;
+  InitWithNoColors();
+  SEQ[PLAIN]:='';
+  SEQ[REVERSE]:='';
+  SEQ[BLINK]:='';
+  SEQ[NOBLINK]:='';
+  SEQ[UNDERLINE]:='';
+  SEQ[NOUNDERLINE]:='';
+  SEQ[DARK]:='';
+  SEQ[NODARK]:='';
+  SEQ[CLS]:='*H*J'; SEQ[CLS][0]:=33C; SEQ[CLS][2]:=33C;
+  SEQ[HOME]:='*H'; SEQ[HOME][0]:=33C;
+  SEQ[CLREOL]:='*K'; SEQ[CLREOL][0]:=33C;
+  SEQ[INSLINE]:='*L'; SEQ[INSLINE][0]:=33C;
+  SEQ[DELLINE]:='*M'; SEQ[DELLINE][0]:=33C;
+  SEQ[BEEP]:='x'; SEQ[BEEP][0]:=7C;
+  SEQ[CURSORON]:='';
+  SEQ[CURSOROFF]:='';
+  SEQ[TERMRESET]:='';
+END InitVT52;
+
 PROCEDURE SetTermType(t:TERMTYPE);
 BEGIN
   Term:=t;
   CASE Term OF
+    VT52: InitVT52 |
     VT100: InitVT100() |
     ANSI: InitANSI() |
     KAYPRO: InitKayPro() |
@@ -274,7 +311,6 @@ PROCEDURE HideCursor();
 BEGIN
   WRITE(SEQ[CURSOROFF]);
 END HideCursor;
-
 
 PROCEDURE ClrScr();
 BEGIN

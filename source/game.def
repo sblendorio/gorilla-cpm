@@ -2,6 +2,7 @@ DEFINITION MODULE Game;
 VAR totalScore:CARDINAL;
     playerName1,playerName2:ARRAY [0..40] OF CHAR;
     g:REAL;
+    block:CHAR;
 
 PROCEDURE StartGame();
 

@@ -3,7 +3,7 @@ FROM XTerm IMPORT SEQ,ESCAPE,AskTermType,ResetTerm,
                   ClrScr,PlotBox,Center,HideCursor,ShowCursor,CursorXY,
                   ClrEol,RandomizeShuffle;
 FROM Terminal IMPORT ReadChar,ReadLine;
-FROM Game IMPORT StartGame,playerName1,playerName2,totalScore,g;
+FROM Game IMPORT StartGame,playerName1,playerName2,totalScore,g,block;
 
 VAR choose:INTEGER;
 
@@ -121,63 +121,74 @@ CONST s='               ';
 BEGIN
   Clear(15,20);
   HideCursor();
-  WRITE(SEQ[YELLOW]); Center(15,'Preferences');
   WRITE(SEQ[WHITE]);
-  CursorXY(26,17);
+  CursorXY(26,15);
   WRITE('1. Player 1 name: ',SEQ[DARK],playerName1,SEQ[NODARK]);
-  CursorXY(26,18);
+  CursorXY(26,16);
   WRITE('2. Player 2 name: ',SEQ[DARK],playerName2,SEQ[NODARK]);
-  CursorXY(26,19);
+  CursorXY(26,17);
   WRITE('3. Total  points: ',SEQ[DARK],totalScore:0,SEQ[NODARK]);
-  CursorXY(26,20);
+  CursorXY(26,18);
   WRITE('4. Gravity m/s^2: ',SEQ[DARK],g:0:1,SEQ[NODARK]);
-  CursorXY(26,21);
-  WRITE('5. Back to main menu');
+  CursorXY(26,19);
+  WRITE('5. Change block char. Current: "',SEQ[REVERSE],block,SEQ[PLAIN],'"');
+  CursorXY(26,20);
+  WRITE('6. Back to main menu');
   LOOP
     ReadChar(ch);
-    IF (ch='5') OR (ch=33C) OR (ch=3C) THEN
+    IF (ch='6') OR (ch=33C) OR (ch=3C) THEN
       choose:=-1; RETURN;
     ELSIF (ch='1') THEN
+      CursorXY(44,15);
+      WRITE(SEQ[DARK],SEQ[REVERSE],s);
+      ShowCursor; CursorXY(44,15);
+      ReadLine(playerName1); HideCursor;
+      IF playerName1='' THEN playerName1:='Player 1' END;
+      CursorXY(44,15);
+      WRITE(SEQ[PLAIN],SEQ[DARK],s);
+      CursorXY(44,15);
+      WRITE(playerName1,SEQ[NODARK]);
+    ELSIF (ch='2') THEN
+      CursorXY(44,16);
+      WRITE(SEQ[DARK],SEQ[REVERSE],s);
+      ShowCursor; CursorXY(44,16);
+      ReadLine(playerName2); HideCursor;
+      IF playerName2='' THEN playerName2:='Player 2' END;
+      CursorXY(44,16);
+      WRITE(SEQ[PLAIN],SEQ[DARK],s);
+      CursorXY(44,16);
+      WRITE(playerName2,SEQ[NODARK]);
+    ELSIF (ch='3') THEN
       CursorXY(44,17);
       WRITE(SEQ[DARK],SEQ[REVERSE],s);
       ShowCursor; CursorXY(44,17);
-      ReadLine(playerName1); HideCursor;
-      IF playerName1='' THEN playerName1:='Player 1' END;
+      READ(totalScore); HideCursor;
+      IF totalScore=0 THEN totalScore:=3 END;
       CursorXY(44,17);
       WRITE(SEQ[PLAIN],SEQ[DARK],s);
       CursorXY(44,17);
-      WRITE(playerName1,SEQ[NODARK]);
-    ELSIF (ch='2') THEN
+      WRITE(totalScore:0,SEQ[NODARK]);
+    ELSIF (ch='4') THEN
       CursorXY(44,18);
       WRITE(SEQ[DARK],SEQ[REVERSE],s);
       ShowCursor; CursorXY(44,18);
-      ReadLine(playerName2); HideCursor;
-      IF playerName2='' THEN playerName2:='Player 2' END;
-      CursorXY(44,18);
-      WRITE(SEQ[PLAIN],SEQ[DARK],s);
-      CursorXY(44,18);
-      WRITE(playerName2,SEQ[NODARK]);
-    ELSIF (ch='3') THEN
-      CursorXY(44,19);
-      WRITE(SEQ[DARK],SEQ[REVERSE],s);
-      ShowCursor; CursorXY(44,19);
-      READ(totalScore); HideCursor;
-      IF totalScore=0 THEN totalScore:=3 END;
-      CursorXY(44,19);
-      WRITE(SEQ[PLAIN],SEQ[DARK],s);
-      CursorXY(44,19);
-      WRITE(totalScore:0,SEQ[NODARK]);
-    ELSIF (ch='4') THEN
-      CursorXY(44,20);
-      WRITE(SEQ[DARK],SEQ[REVERSE],s);
-      ShowCursor; CursorXY(44,20);
       READ(g); HideCursor;
       IF g=0.0 THEN g:=9.8 END;
-      CursorXY(44,20);
+      CursorXY(44,18);
       WRITE(SEQ[PLAIN],SEQ[DARK],s);
-      CursorXY(44,20);
+      CursorXY(44,18);
       WRITE(g:0:1,SEQ[NODARK]);
-    END
+    ELSIF (ch='5') THEN
+      IF block=40C THEN
+        block:=43C;
+      ELSIF block=43C THEN
+        block:=333C;
+      ELSIF block=333C THEN
+        block:=40C;
+      END;
+      CursorXY(57,19);
+      WRITE('"',SEQ[REVERSE],block,SEQ[PLAIN],'"');
+    END;
   END;
   choose:=-1;
   ReadChar(ch);
@@ -245,7 +256,7 @@ BEGIN
 
   choose:=1;
   REPEAT
-    IF choose=-1 THEN Clear(16,21) ELSE IntroScreen END;
+    IF choose=-1 THEN Clear(15,21) ELSE IntroScreen END;
     SelectionScreen;
     CASE choose OF
       1: StartGame |
