@@ -202,7 +202,7 @@ BEGIN
   Center(4,'                           ');
   Center(5,'   G O R I L L A . B A S   ');
   Center(6,'                           ');
-  WRITELN(SEQ[BLACK]);
+  CursorXY(40,8);
   WRITE(SEQ[CYAN],SEQ[PLAIN]);
   Center(8,'written by');
   Center(9,'Francesco Sblendorio');

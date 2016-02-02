@@ -387,11 +387,12 @@ BEGIN
       CursorXY(1,1); ClrEol;
       CursorXY(1,2); ClrEol;
       CursorXY(1,3); ClrEol;
-      ArmDownLeft(x1,y1);
-      dummy:=Shoot(y1-2,Deg2Rad(angle1),
-                   FLOAT(speed1),x1+1,79,' ',finalX,finalY);
-      HitBuilding(finalX,finalY,FALSE);
-      angle2:=angle2;
+      IF (finalX#0) AND (finalY#0) THEN
+        ArmDownLeft(x1,y1);
+        dummy:=Shoot(y1-2,Deg2Rad(angle1),
+                     FLOAT(speed1),x1+1,79,' ',finalX,finalY);
+        HitBuilding(finalX,finalY,FALSE);
+      END;
       ArmUpRight(x2,y2);
       outcome:=Shoot(y2-2,Deg2Rad(angle2),
                      FLOAT(speed2),x2-1,1,'*',finalX,finalY);
