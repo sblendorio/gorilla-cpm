@@ -17,6 +17,7 @@ BEGIN
   ELSIF name='ADM31' THEN RETURN ADM31;
   ELSIF name='C128' THEN RETURN C128;
   ELSIF name='MEMOTECH' THEN RETURN MEMOTECH;
+  ELSIF name='CPC' THEN RETURN CPC;
   ELSE RETURN INVALID;
   END;
 END String2TermType;
@@ -24,13 +25,14 @@ END String2TermType;
 PROCEDURE PrintTermType(t:TERMTYPE);
 BEGIN
   CASE t OF
-    VT52:     WRITE('VT52     (B&W)') |
-    VT100:    WRITE('VT100    (B&W)') |
-    ANSI:     WRITE('ANSI     (Color)') |
-    KAYPRO:   WRITE('KayPro   (B&W)') |
-    ADM31:    WRITE('ADM31    (B&W)') |
-    C128:     WRITE('C128     (Color)') |
-    MEMOTECH: WRITE('Memotech (B&W)') |
+    VT52:     WRITE('VT52      (B&W)') |
+    VT100:    WRITE('VT100     (B&W)') |
+    ANSI:     WRITE('ANSI      (Color)') |
+    KAYPRO:   WRITE('KayPro    (B&W)') |
+    ADM31:    WRITE('ADM31     (B&W)') |
+    C128:     WRITE('C128      (Color)') |
+    MEMOTECH: WRITE('Memotech  (B&W)') |
+    CPC:      WRITE('CPC / Z19 (B&W)') |
     INVALID:  WRITE('INVALID') |
     LAST: WRITE('LAST')
   END;
@@ -259,6 +261,13 @@ BEGIN
   SEQ[TERMRESET]:='';
 END InitVT52;
 
+PROCEDURE InitCPC;
+BEGIN
+  InitVT52();
+  SEQ[PLAIN]:='*q'; SEQ[PLAIN][0]:=33C;
+  SEQ[REVERSE]:='*p'; SEQ[REVERSE][0]:=33C;
+END InitCPC;
+
 PROCEDURE SetTermType(t:TERMTYPE);
 BEGIN
   Term:=t;
@@ -269,7 +278,8 @@ BEGIN
     KAYPRO: InitKayPro() |
     ADM31: InitC128(FALSE) |
     C128: InitC128(TRUE) |
-    MEMOTECH: InitMemotech()
+    MEMOTECH: InitMemotech() |
+    CPC: InitCPC()
   END;
 END SetTermType;
 
