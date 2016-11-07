@@ -109,11 +109,11 @@ BEGIN
   SEQ[CLS]:='~[2J~[H'; SEQ[CLS][0]:=33C; SEQ[CLS][4]:=33C;
   SEQ[HOME]:='~[H'; SEQ[HOME][0]:=33C;
   SEQ[CLREOL]:='~[K'; SEQ[CLREOL][0]:=33C;
-  SEQ[INSLINE]:='~L'; SEQ[INSLINE][0]:=33C;
-  SEQ[DELLINE]:='~M'; SEQ[DELLINE][0]:=33C;
+  SEQ[INSLINE]:='~[L'; SEQ[INSLINE][0]:=33C;
+  SEQ[DELLINE]:='~[M'; SEQ[DELLINE][0]:=33C;
   SEQ[CURSORON]:='~[?25h'; SEQ[CURSORON][0]:=33C;
   SEQ[CURSOROFF]:='~[?25l'; SEQ[CURSOROFF][0]:=33C;
-  SEQ[TERMRESET]:='~[m'; SEQ[TERMRESET][0]:=33C;
+  SEQ[TERMRESET]:='~c'; SEQ[TERMRESET][0]:=33C;
 END InitVT100base;
 
 PROCEDURE InitVT100();
@@ -138,7 +138,7 @@ BEGIN
   SEQ[YELLOW]:='~[33m~[22m';
   SEQ[DARKPURPLE]:='~[35m~[2m';
   SEQ[BROWN]:='~[33m~[2m';
-  SEQ[LIGHTRED]:='~[31m~[2m';
+  SEQ[LIGHTRED]:='~[31m~[22m';
   SEQ[DARKGREY]:='~[37m~[2m';
   SEQ[DARKCYAN]:='~[36m~[2m';
   SEQ[LIGHTGREEN]:='~[32m~[22m';
@@ -400,8 +400,8 @@ BEGIN
       INC(i);
       WRITE(ch);
     ELSIF ((ch=10C) OR (ch=177C)) AND (i>0) THEN
-      s[i]:=0C;
       DEC(i);
+      s[i]:=0C;
       CursorXY(x+i,y); WRITE(' ');
     ELSIF (ch=33C) OR (ch=3C) THEN
       s[0]:=0C;
