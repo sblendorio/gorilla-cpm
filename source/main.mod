@@ -184,6 +184,8 @@ BEGIN
       ELSIF block=43C THEN
         block:=333C;
       ELSIF block=333C THEN
+        block:=377C;
+      ELSIF block=377C THEN
         block:=40C;
       END;
       CursorXY(57,19);
