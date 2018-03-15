@@ -24,13 +24,14 @@ The choice was mainly due to a historic interest: this compiler (never distribut
 ## Credits
 Thanks to [Fabrizio Radica](http://www.retroacademy.it/) for the idea, [YAZE Team](http://www.mathematik.uni-ulm.de/users/ag/yaze/) for the fantastic Z80 emulator that runs fine on Mac OS X, [Lawrence Woodman](http://techtinkering.com/2013/03/12/if-only-borland-had-stuck-with-turbo-modula-2-for-cpm/) for sharing informations about CP/M and Turbo Modula-2, [Dave Stevenson](http://www.primrosebank.net/computers/mtx/mtx512.htm) for sharing informations about Memotech MTX and to **Sergio Gervasini** and **Stefania Calcagno** for support.
 
-## Screenshots on C128 / Amstrad CPC6128
-![Multiple platforms](http://www.sblendorio.eu/images/gorilla128.jpg)
-## Screenshots on Commodore 128
-### Intro screen
+## In-game screen on Commodore 128
+![C128 version](http://www.sblendorio.eu/images/gorilla128.jpg)
+## Multiple platforms: C128 / Amstrad CPC6128
+![Multiple platforms](http://www.sblendorio.eu/images/gorilla-128.jpg)
+## Intro screen
 ![C128 version](http://www.sblendorio.eu/images/gorilla-1.png)
-### Game screen - 1
+## Game screen - 1
 ![C128 version](http://www.sblendorio.eu/images/gorilla-2.png)
-### Game screen - 2
+## Game screen - 2
 ![C128 version](http://www.sblendorio.eu/images/gorilla-3.png)
 
