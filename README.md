@@ -27,7 +27,7 @@ Thanks to [Fabrizio Radica](http://www.retroacademy.it/) for the idea, [YAZE Tea
 ## In-game screen on Commodore 128
 ![Multiple platforms](http://www.sblendorio.eu/images/gorilla-128.jpg)
 ## Multiple platforms: C128 / Amstrad CPC6128
-![C128 version](http://www.sblendorio.eu/images/gorilla128.jpg)
+![C128 version](http://www.sblendorio.eu/images/gorilla128.jpg?1)
 ## Intro screen
 ![C128 version](http://www.sblendorio.eu/images/gorilla-1.png)
 ## Game screen - 1
