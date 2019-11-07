@@ -37,3 +37,5 @@ Thanks to [Fabrizio Radica](http://www.retroacademy.it/) for the idea, [YAZE Tea
 ## Game screen - 2
 ![C128 version](http://www.sblendorio.eu/images/gorilla-3.png)
 
+## External links
+https://git.imzadi.de/acn/vt100-games
